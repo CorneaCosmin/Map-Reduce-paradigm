@@ -1,0 +1,33 @@
+Tema 1 - APD
+
+    Pentru inceput retin argumentele rularii unde se afla numarul de mapperi, 
+reduceri si numele fisierului de intrare. Deschid fisierul de intrare, verific 
+daca primesc erori si citesc numarul de fisiere de procesat. Retin numele 
+fisierelor de procesat si le calculez dimensiunile pentru a adauga in functie 
+de acestea in coada de prioritati cu fisiere de procesat. Coada contine obiecte
+de tip File_data cu numele si dimensiunea fisierului. Dupa aceea creez (numar 
+mapperi + numar reduceri) threaduri cu functia Map_Reduce care primeste ca 
+argument o variabila de tip Mapper_Reducer. In functia Map_Reduce verific mai 
+intai indexul pentru a sti ce tip de thread este (Mapper sau Reducer). Pentru cele
+de tip Mapper scot din coada fisiere si le procesez cat timp aceasta nu este 
+goala pentru a le imparti cat mai echilibrat. Scot cate un fisier din coada si 
+il deschid folosind un mutex ca sa nu acceseze mai multe threaduri in acelasi 
+timp aceeasi zona de memorie. Citesc numarul de valori din fisier si pentru 
+fiecare valoare fac o cautare binara pentru a verifica daca aceasta este 
+putere perfecta si care este exponentul asociat. Cand am gasit, adaug in vectorul
+de mapuri la mapul cu indexul threadului avand cheia exponentul si valoarea
+puterea perfecta. Dupa ce citesc toate valorile inchid fisierul. Dupa aceea am
+o bariera pentru a astepta toate threadurile de tip Mapper sa isi incheie 
+operatiile. Daca threadul are un index de tip Reducer, calculez exponentul 
+pentru care obtine valorile Reducerul in functie de index si citesc din
+vectorul de mapuri toate valorile asociate cheii egale cu exponentul, pe
+care le retin intr-un set (care retine valori fara duplicate). Formez numele
+fisierului de output in functie de exponent, il deschid si scriu in acesta
+numarul de elemente din set. La final inchid fisierul. In main apelez functia
+join pentru a astepta toate threadurile si dezaloc memoria alocata variabilelor,
+mutexului si barierei.   
+
+Resurse utilizate:
+Dimensiune fisier: https://www.tutorialspoint.com/how-can-i-get-a-file-s-size-in-cplusplus
+Cautare binara pentru puteri perfecte: 
+https://www.geeksforgeeks.org/check-if-a-given-number-is-a-perfect-square-using-binary-search/
